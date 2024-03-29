@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class buttonWidget extends StatefulWidget {
   String digit;
-  //Function ondigitClik;
-  buttonWidget(this.digit);
+  Function ondigitClik;
+  buttonWidget(this.digit, this.ondigitClik);
 
   @override
   State<buttonWidget> createState() => _buttonWidgetState();
@@ -17,7 +17,12 @@ class _buttonWidgetState extends State<buttonWidget> {
         child: Container(
           margin: const EdgeInsets.all(4),
           child: ElevatedButton(
-              onPressed: (){},
+              onPressed: (){
+                if(widget.digit=="="){
+                  widget.ondigitClik();
+                }
+                widget.ondigitClik();
+              },
               child:
               Text(widget.digit,
                 style: TextStyle(
