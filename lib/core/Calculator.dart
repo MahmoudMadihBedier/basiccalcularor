@@ -33,17 +33,17 @@ class _calculatorState extends State<calculator> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(result==" "?"0.0":result, style: TextStyle(color: Colors.white,fontWeight:  FontWeight.bold, fontSize: 20,),)
+                  Text("${result==" " ?"0.0":result}", style: TextStyle(color: Colors.white,fontWeight:  FontWeight.bold, fontSize: 20,),)
               ],)),
           Expanded(
               child:Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buttonWidget('7',ondigitclik),
-                  buttonWidget('8',ondigitclik),
-                  buttonWidget('9',ondigitclik),
-                  buttonWidget('+',ondigitclik),
+                  buttonWidget('7',ondigetclik),
+                  buttonWidget('8',ondigetclik),
+                  buttonWidget('9',ondigetclik),
+                  buttonWidget('+',onOperatotclik),
 
                 ],
               )),
@@ -52,10 +52,10 @@ class _calculatorState extends State<calculator> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buttonWidget('4',ondigitclik),
-                  buttonWidget('5',ondigitclik),
-                  buttonWidget('6',ondigitclik),
-                  buttonWidget('-',ondigitclik),
+                  buttonWidget('4',ondigetclik),
+                  buttonWidget('5',ondigetclik),
+                  buttonWidget('6',ondigetclik),
+                  buttonWidget('-',onOperatotclik),
 
                 ],
               )),
@@ -64,10 +64,10 @@ class _calculatorState extends State<calculator> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buttonWidget('1',ondigitclik),
-                  buttonWidget('2',ondigitclik),
-                  buttonWidget('3',ondigitclik),
-                  buttonWidget('*',ondigitclik),
+                  buttonWidget('1',ondigetclik),
+                  buttonWidget('2',ondigetclik),
+                  buttonWidget('3',ondigetclik),
+                  buttonWidget('*',onOperatotclik),
 
                 ],
               )),
@@ -76,10 +76,10 @@ class _calculatorState extends State<calculator> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buttonWidget('0',ondigitclik),
-                  buttonWidget('.',ondigitclik),
-                  buttonWidget('/',ondigitclik),
-                  ac_button_widget()
+                  buttonWidget('0',ondigetclik),
+                  buttonWidget('=',OequelClik),
+                  buttonWidget('/',onOperatotclik),
+                  ac_button_widget(result,OnAcClik)
 
                 ],
               ))
@@ -90,49 +90,70 @@ class _calculatorState extends State<calculator> {
       ),
     );
   }
-  String LHS=" ";
+  String LHS="";
   String operator="";
-  void ondigitclik( String digit){
+  void ondigetclik(String digit){
+
     print(digit);
     setState(() {
       result+=digit;
     });
+
+
   }
-  void OnOperatorClik(String onoperatorclik){
-    if(LHS.isEmpty){
-      LHS=result;
-    }else{
-      String RHS=result;
-      LHS=calculator(LHS,operator,RHS).toString();
+  void onOperatotclik(String operatorclik){
+    if (LHS.isEmpty){
+      LHS=result ;
+
+    }
+    else {
+      String RHS=result ;
+      LHS =calculator(LHS,operator,RHS).toString();
+
+
     }
     setState(() {
 
     });
     result=" ";
-    operator=onoperatorclik;
+    operator=operatorclik;
   }
-  void onequalClik(){
-    print(LHS);
-    print(operator);
+  double? calculator( LHS, operator, RHS){
+    double LHSdouble= double.parse(LHS);
+    double RHSdouble =double.parse(RHS);
+
+    if (operator=='+'){return LHSdouble+RHSdouble;}
+    if (operator=='-'){return LHSdouble-RHSdouble;}
+    if (operator=='*'){return LHSdouble*RHSdouble;}
+    if (operator=='/'){return LHSdouble/RHSdouble;}
+
+
+
+
+
+  }
+  void OequelClik(){
+    print (LHS);
     print(result);
-    result=calculator(LHS, operator, result).toString();
+    print(operator);
+
+    result=calculator(LHS,operator,result).toString();
+    LHS=" ";
     setState(() {
-      result=calculator(LHS, operator, result).toString();
+     
     });
-    result=" ";
 
-  }
-  double?  calculator(LHS,operator,RHS){
-    double LHSdouble=double.parse(LHS);
-    double RHSdouble=double.parse(RHS);
-    if(operator=='+'){return LHSdouble+RHSdouble;}
-    if(operator=='-'){return LHSdouble-RHSdouble;}
-    if(operator=='*'){return LHSdouble*RHSdouble;}
-    if(operator=='/'){return LHSdouble/RHSdouble;}
 
 
   }
+  void OnAcClik(){
+    setState(() {
+      result="";
 
+    });
+    result="";
+    print(result);
+  }
 }
 
 
